@@ -30,8 +30,7 @@ void makeTree(BST<std::string>& tree, const char* filename) {
 
         if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {
             word += std::tolower(ch);
-        }
-        else {
+        } else {
             if (!word.empty()) {
                 tree.insert(word);
                 word = "";
@@ -41,7 +40,8 @@ void makeTree(BST<std::string>& tree, const char* filename) {
     file.close();
 }
 
-bool compareFreq(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+bool compareFreq(const std::pair<std::string, int>& a,
+                 const std::pair<std::string, int>& b) {
     if (a.second != b.second) {
         return a.second > b.second;
     }
