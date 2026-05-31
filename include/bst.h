@@ -8,7 +8,7 @@
 
 template <typename T>
 class BST {
-private:
+ private:
     struct Node {
         T value;
         int count;
@@ -33,11 +33,9 @@ private:
         }
         if (value < node->value) {
             node->left = insertNode(node->left, value);
-        }
-        else if (value > node->value) {
+        } else if (value > node->value) {
             node->right = insertNode(node->right, value);
-        }
-        else {
+        } else {
             node->count++;
         }
         return node;
@@ -53,19 +51,22 @@ private:
     int searchNode(Node* node, T value) const {
         if (!node) return 0;
         if (value == node->value) return node->count;
-        if (value < node->value) return searchNode(node->left, value);
-        return searchNode(node->right, value);
+        if (value < node->value) {
+            return searchNode(node->left, value);
+        } else {
+            return searchNode(node->right, value);
+        }
     }
 
     void extract(Node* node, std::vector<std::pair<T, int>>& container) const {
         if (node) {
             extract(node->left, container);
-            container.push_back({ node->value, node->count });
+            container.push_back({node->value, node->count});
             extract(node->right, container);
         }
     }
 
-public:
+ public:
     BST() : root(nullptr) {}
     ~BST() { destroyTree(root); }
 
