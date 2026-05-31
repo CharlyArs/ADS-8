@@ -14,15 +14,15 @@ private:
         int count;
         Node* left;
         Node* right;
-        Node(T val) : value(val), count(1), left(nullptr), right(nullptr) {}
+        explicit Node(T val) : value(val), count(1), left(nullptr), right(nullptr) {}
     };
 
     Node* root;
 
-    void breakTree(Node* node) {
+    void destroyTree(Node* node) {
         if (node) {
-            breakTree(node->left);
-            breakTree(node->right);
+            destroyTree(node->left);
+            destroyTree(node->right);
             delete node;
         }
     }
@@ -44,7 +44,7 @@ private:
     }
 
     int getDepth(Node* node) const {
-        if (!node) return 0;
+        if (!node) return -1;
         int leftDepth = getDepth(node->left);
         int rightDepth = getDepth(node->right);
         return 1 + std::max(leftDepth, rightDepth);
@@ -67,13 +67,14 @@ private:
 
 public:
     BST() : root(nullptr) {}
-    ~BST() { breakTree(root); }
+    ~BST() { destroyTree(root); }
 
     void insert(T value) {
         root = insertNode(root, value);
     }
 
     int depth() const {
+        if (!root) return 0;
         return getDepth(root);
     }
 
